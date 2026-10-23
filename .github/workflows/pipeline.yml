@@ -1,0 +1,34 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  preparacao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+      - name: Job 1 — Preparação
+        run: echo "Pipeline iniciado!"
+
+  teste:
+    runs-on: ubuntu-latest
+    needs: preparacao
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+      - name: Job 2 — Teste
+        run: |
+          echo "Executando testes..."
+          echo "Testes concluídos com sucesso!"
+
+  finalizacao:
+    runs-on: ubuntu-latest
+    needs: teste
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+      - name: Job 3 — Finalização
+        run: echo "Pipeline finalizado com sucesso!"
